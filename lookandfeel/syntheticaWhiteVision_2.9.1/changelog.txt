@@ -1,0 +1,38 @@
+01/01/2010 V2.9.1
+- Updated copyright and license because of company rebrand.
+- Optimized button size for option panes.
+
+-------------------------------------------------------------------------------
+
+10/07/2009 V2.9.0
+- Added support to handle multiple XML files
+- Removed SyntheticaAddons configuration from synth.xml 
+- Improved Separator compatibility 
+
+-------------------------------------------------------------------------------
+
+06/16/2008 V1.3.0
+- Renamed flexdock UI-property keys
+- Added additional icons to improve support for third party docking solutions 
+
+-------------------------------------------------------------------------------
+
+05/25/2008 V1.2.0
+- Modified tool bar handle reference
+- Removed unnecessary object wrappers
+- Added button definitions for ButtonBar
+- ArrowUp image size modified from 18x18 to 16x16 pixels
+- Modified tooltip text color for disabled components
+
+-------------------------------------------------------------------------------
+
+11/27/2007 V1.1.0
+- Added vertical/horizontal toolBar handle.
+- Reduced top insets between titlepane and menu for two pixels.
+- Optimized height for spinner and combobox (equal to textfields).
+- Spinner button style stays even if buttons will grow.
+
+-------------------------------------------------------------------------------
+
+08/31/2007 V1.0.0
+- First official release of the WhiteVision LAF.
