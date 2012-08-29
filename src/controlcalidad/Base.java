@@ -20,12 +20,26 @@ public class Base extends javax.swing.JFrame {
      * Creates new form Base
      */
     private boolean estaFull = false;
+    private boolean LoginFull = true;
     static GraphicsDevice grafica=
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
    
     public Base() {
         initComponents();
         ConfiguracionVentana();
+        Login();
+        
+    }
+    public void Login(){
+           VentanaFrmPrincipal vi = new VentanaFrmPrincipal();
+        vi.setResizable(false);
+        vi.setMaximizable(true);
+        vi.setIconifiable(true);
+        vi.setClosable(true);
+        vi.setVisible(true);/*se le asigna este metodo para hacerlo visible obvio*/
+       
+        
+        panelInterno.add(vi);
         
     }
     public void ConfiguracionVentana(){
@@ -117,7 +131,7 @@ public class Base extends javax.swing.JFrame {
     private void abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirActionPerformed
         // TODO add your handling code here:
         VentanaFrmPrincipal vi = new VentanaFrmPrincipal();
-        vi.setResizable(true);
+        //vi.setResizable(true);
         vi.setMaximizable(true);
         vi.setIconifiable(true);
         vi.setClosable(true);
@@ -179,7 +193,7 @@ public class Base extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Base.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        /*try{
+      try{
             UIManager.setLookAndFeel(new SyntheticaBlackMoonLookAndFeel());
         }catch(Exception ex)
         {
@@ -190,6 +204,7 @@ public class Base extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Base().setVisible(true);
+               
             }
         });
     }
