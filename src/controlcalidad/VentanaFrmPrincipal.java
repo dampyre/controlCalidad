@@ -3,6 +3,9 @@
  * and open the template in the editor.
  */
 package controlcalidad;
+import java.io.*;
+import java.sql.*;
+import javax.swing.*;
 
 /**
  *
@@ -13,12 +16,29 @@ public class VentanaFrmPrincipal extends javax.swing.JInternalFrame {
     /**
      * Creates new form VentanaFrmPrincipal
      */
+    String usuario,password;
+    
     public VentanaFrmPrincipal() {
         initComponents();
         
         
     }
-
+    
+    boolean validarUsuario (String usr, String pass) throws IOException {
+        try{
+            Class.forName("org.gjt.mm.mysql.Driver");
+            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/control","root", "s0lang3");
+            Statement instruccion = conexion.createStatement();
+            ResultSet resultadoConsulta = instruccion.executeQuery("SELECT * FROM usuarios WHERE nombre ='"+usr+"'AND password='"+pass+"'");
+                if(resultadoConsulta.first())
+                    return true ;//el usuario es valido 
+                else
+                    return false; //el usuario no existe
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,18 +51,18 @@ public class VentanaFrmPrincipal extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        btnIngresar = new javax.swing.JButton();
+        txtUsuario = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
 
         jLabel1.setText("Usuario");
 
         jLabel2.setText("Pasword");
 
-        jButton1.setText("Ingresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
 
@@ -51,18 +71,21 @@ public class VentanaFrmPrincipal extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(264, 264, 264)
-                .addComponent(jLabel1)
-                .addGap(4, 4, 4)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(264, 264, 264)
-                .addComponent(jLabel2)
-                .addGap(4, 4, 4)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(370, 370, 370)
-                .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(264, 264, 264)
+                        .addComponent(jLabel1)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(264, 264, 264)
+                        .addComponent(jLabel2)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(370, 370, 370)
+                        .addComponent(btnIngresar)))
+                .addContainerGap(304, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,29 +95,53 @@ public class VentanaFrmPrincipal extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel1))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel2))
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
-                .addComponent(jButton1))
+                .addComponent(btnIngresar)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        try{
+            //validacion de usuario
+            if(txtUsuario.getText().length()>0 && txtPassword.getText().length()>0){
+                
+                if(validarUsuario(txtUsuario.getText(),txtPassword.getText())){
+                    ControlOT OT = new ControlOT();
+                    OT.setResizable(true);
+                    OT.setMaximizable(true);
+                    OT.setIconifiable(true);
+                    OT.setClosable(true);
+                    OT.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null,"El nombre de usuario o contraseña no son validos");
+                    txtUsuario.setText("");
+                    txtPassword.setText("");
+                    txtUsuario.requestFocusInWindow();
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "no debe dejar ningun campo en blanco ");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
