@@ -27,16 +27,17 @@ public class VentanaFrmPrincipal extends javax.swing.JInternalFrame {
     boolean validarUsuario (String usr, String pass) throws IOException {
         try{
             Class.forName("org.gjt.mm.mysql.Driver");
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/control","root", "s0lang3");
+            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root", "s0lang3");
             Statement instruccion = conexion.createStatement();
-            ResultSet resultadoConsulta = instruccion.executeQuery("SELECT * FROM usuarios WHERE nombre ='"+usr+"'AND password='"+pass+"'");
+            ResultSet resultadoConsulta = instruccion.executeQuery("SELECT * FROM usuarios WHERE usuario ='"+usr+"'AND password='"+pass+"'");
                 if(resultadoConsulta.first())
                     return true ;//el usuario es valido 
+                
                 else
                     return false; //el usuario no existe
         }catch(Exception e){
-            e.printStackTrace();
-            return false;
+          JOptionPane.showMessageDialog(null,"no se puede conectar a la base de datos","error"+ e.getMessage(),JOptionPane.ERROR_MESSAGE);
+          return false;
         }
     }
    
@@ -123,6 +124,8 @@ public class VentanaFrmPrincipal extends javax.swing.JInternalFrame {
                     OT.setIconifiable(true);
                     OT.setClosable(true);
                     OT.setVisible(true);
+                    
+                    setVisible(false);
                 }else{
                     JOptionPane.showMessageDialog(null,"El nombre de usuario o contraseña no son validos");
                     txtUsuario.setText("");
