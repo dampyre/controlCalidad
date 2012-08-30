@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author dampyre
  */
-public class Base extends javax.swing.JFrame {
+public class Base1 extends javax.swing.JFrame {
 
     /**
      * Creates new form Base
@@ -24,27 +24,20 @@ public class Base extends javax.swing.JFrame {
     static GraphicsDevice grafica=
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
    
-    public Base() {
+    public Base1() {
         initComponents();
         ConfiguracionVentana();
-        Login();
+        
         
     }
-    public void Login(){
-           VentanaFrmPrincipal vi = new VentanaFrmPrincipal();
-        vi.setResizable(false);
-        vi.setMaximizable(true);
-        vi.setIconifiable(true);
-        vi.setClosable(true);
-        vi.setVisible(true);/*se le asigna este metodo para hacerlo visible obvio*/
-       
-        
-        panelInterno.add(vi);
-        
+ 
+    public void mostrar(){
+        setVisible(true);
     }
     public void ConfiguracionVentana(){
         this.setSize(800,600);
-        this.setExtendedState(Base.MAXIMIZED_BOTH);
+        this.setExtendedState(Base1.MAXIMIZED_BOTH);
+        
     }
 
     /**
@@ -57,7 +50,7 @@ public class Base extends javax.swing.JFrame {
     private void initComponents() {
 
         panelInterno = new javax.swing.JDesktopPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menu = new javax.swing.JMenuBar();
         MenuAbrir = new javax.swing.JMenu();
         abrir = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -97,7 +90,7 @@ public class Base extends javax.swing.JFrame {
         });
         MenuAbrir.add(menuSalir);
 
-        jMenuBar1.add(MenuAbrir);
+        menu.add(MenuAbrir);
 
         jMenu1.setText("Otros");
 
@@ -117,9 +110,9 @@ public class Base extends javax.swing.JFrame {
         });
         jMenu1.add(menuCtrlOT);
 
-        jMenuBar1.add(jMenu1);
+        menu.add(jMenu1);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menu);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -130,14 +123,14 @@ public class Base extends javax.swing.JFrame {
 
     private void abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirActionPerformed
         // TODO add your handling code here:
-        VentanaFrmPrincipal vi = new VentanaFrmPrincipal();
+       /* VentanaFrmPrincipal vi = new VentanaFrmPrincipal();
         //vi.setResizable(true);
         vi.setMaximizable(true);
         vi.setIconifiable(true);
         vi.setClosable(true);
         vi.setVisible(true);/*se le asigna este metodo para hacerlo visible obvio*/
         
-        panelInterno.add(vi);
+        //panelInterno.add(vi);
         
     }//GEN-LAST:event_abrirActionPerformed
 
@@ -148,11 +141,19 @@ public class Base extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-         if(!estaFull)
+         if(!estaFull){
                         grafica.setFullScreenWindow(this);
+                        
+                       
+                     }    
+                        
                 else
-                        grafica.setFullScreenWindow(null);
+         {
+             grafica.setFullScreenWindow(null);
+         
                 estaFull = !estaFull;
+                
+                }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void menuCtrlOTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCtrlOTActionPerformed
@@ -184,15 +185,16 @@ public class Base extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Base.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Base1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Base.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Base1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Base.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Base1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Base.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Base1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+      
       try{
             UIManager.setLookAndFeel(new SyntheticaBlackMoonLookAndFeel());
         }catch(Exception ex)
@@ -203,8 +205,8 @@ public class Base extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Base().setVisible(true);
-               
+                new Base1().setVisible(true);
+              
             }
         });
     }
@@ -212,10 +214,10 @@ public class Base extends javax.swing.JFrame {
     private javax.swing.JMenu MenuAbrir;
     private javax.swing.JMenuItem abrir;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem menuCtrlOT;
     private javax.swing.JMenuItem menuSalir;
     private javax.swing.JDesktopPane panelInterno;
